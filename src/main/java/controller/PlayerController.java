@@ -1,19 +1,19 @@
-﻿package controller;
+package controller;
 
 import model.Player;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import service.PlayerServices;
+import service.PlayerService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("api/player")
+@RequestMapping("/api/player")
 public class PlayerController
 {
-    private final PlayerServices playerServices;
+    private final PlayerService playerServices;
 
-    public PlayerController(PlayerServices playerServices)
+    public PlayerController(PlayerService playerServices)
     {
         this.playerServices = playerServices;
     }
@@ -27,19 +27,35 @@ public class PlayerController
     @GetMapping("/{id}")
     public ResponseEntity<Player> GetPlayerById(@PathVariable Long id)
     {
-        return playerServices.GetPlayerById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+        Player player = playerServices.GetPlayerById(id);
+        return ResponseEntity.ok(player);
     }
 
     @PostMapping
     public ResponseEntity<Player> CreatePlayer(@RequestBody Player player)
     {
-        return ResponseEntity.ok(playerServices.CreatePlayer(player));
+        Player createdPlayer = playerServices.CreatePlayer(player);
+        return ResponseEntity.status(201).body(createdPlayer);
     }
 
-    @DeleteMapping
+    @PutMapping("/{id}")
+    public ResponseEntity<Player> UpdatePlayer(@PathVariable Long id, @RequestBody Player updatedPlayer)
+    {
+        Player player = playerServices.UpdatePlayer(id, updatedPlayer);
+        return ResponseEntity.ok(player);
+    }
+
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> DeletePlayer(@PathVariable Long id)
     {
         playerServices.DeletePlayer(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<Player> FindByNickName(@RequestParam String nickname)
+    {
+        Player player = playerServices.FindByNickName(nickname);
+        return ResponseEntity.ok(player);
     }
 }

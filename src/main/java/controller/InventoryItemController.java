@@ -1,4 +1,4 @@
-﻿package controller;
+package controller;
 
 import model.InventoryItem;
 import org.springframework.http.ResponseEntity;
@@ -19,21 +19,22 @@ public class InventoryItemController
     }
 
     @GetMapping("/player/{playerId}")
-    public ResponseEntity<List<InventoryItem>> getInventoryByPlayerId(@PathVariable Long playerId)
+    public ResponseEntity<List<InventoryItem>> GetInventoryByPlayerId(@PathVariable Long playerId)
     {
         return ResponseEntity.ok(inventoryService.GetInventoryByPlayerId(playerId));
     }
 
-    @PostMapping
-    public ResponseEntity<InventoryItem> addItemToInventory(@RequestBody InventoryItem item)
+    @PostMapping("/player/{playerId}")
+    public ResponseEntity<InventoryItem> AddItemToInventory(@PathVariable Long playerId, @RequestBody InventoryItem item)
     {
-        return ResponseEntity.ok(inventoryService.AddItemToInventory(item));
+        InventoryItem createdItem = inventoryService.AddItemToInventory(playerId, item);
+        return ResponseEntity.status(201).body(createdItem);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteItem(@PathVariable Long id)
+    @DeleteMapping("/{itemId}")
+    public ResponseEntity<Void> DeleteItem(@PathVariable Long itemId)
     {
-        inventoryService.DeleteItem(id);
+        inventoryService.DeleteItem(itemId);
         return ResponseEntity.noContent().build();
     }
 }

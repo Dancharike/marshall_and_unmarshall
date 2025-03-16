@@ -1,4 +1,4 @@
-﻿package repository;
+package repository;
 
 import model.Player;
 import org.springframework.data.jpa.repository.JpaRepository;

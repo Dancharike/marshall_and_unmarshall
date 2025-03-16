@@ -1,4 +1,4 @@
-﻿package controller;
+package controller;
 
 import model.Achievement;
 import org.springframework.http.ResponseEntity;
@@ -19,25 +19,26 @@ public class AchievementController
     }
 
     @GetMapping
-    public ResponseEntity<List<Achievement>> getAllAchievements()
+    public ResponseEntity<List<Achievement>> GetAllAchievements()
     {
         return ResponseEntity.ok(achievementService.GetAllAchievements());
     }
 
     @GetMapping("/player/{playerId}")
-    public ResponseEntity<List<Achievement>> getAchievementsByPlayerId(@PathVariable Long playerId)
+    public ResponseEntity<List<Achievement>> GetAchievementsByPlayerId(@PathVariable Long playerId)
     {
         return ResponseEntity.ok(achievementService.GetAchievementsByPlayerId(playerId));
     }
 
-    @PostMapping
-    public ResponseEntity<Achievement> createAchievement(@RequestBody Achievement achievement)
+    @PostMapping("/player/{playerId}")
+    public ResponseEntity<Achievement> CreateAchievement(@PathVariable Long playerId, @RequestBody Achievement achievement)
     {
-        return ResponseEntity.ok(achievementService.CreateAchievement(achievement));
+        Achievement created = achievementService.CreateAchievement(playerId, achievement);
+        return ResponseEntity.status(201).body(created);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteAchievement(@PathVariable Long id)
+    public ResponseEntity<Void> DeleteAchievement(@PathVariable Long id)
     {
         achievementService.DeleteAchievement(id);
         return ResponseEntity.noContent().build();

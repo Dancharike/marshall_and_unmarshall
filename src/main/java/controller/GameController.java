@@ -1,9 +1,9 @@
-﻿package controller;
+package controller;
 
 import model.Game;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import service.GameServices;
+import service.GameService;
 
 import java.util.List;
 
@@ -11,27 +11,42 @@ import java.util.List;
 @RequestMapping("/api/games")
 public class GameController
 {
-    private final GameServices gameService;
+    private final GameService gameService;
 
-    public GameController(GameServices gameService)
+    public GameController(GameService gameService)
     {
         this.gameService = gameService;
     }
 
     @GetMapping
-    public ResponseEntity<List<Game>> getAllGames()
+    public ResponseEntity<List<Game>> GetAllGames()
     {
         return ResponseEntity.ok(gameService.GetAllGames());
     }
 
-    @PostMapping
-    public ResponseEntity<Game> createGame(@RequestBody Game game)
+    @GetMapping("/{id}")
+    public ResponseEntity<Game> GetGameById(@PathVariable Long id)
     {
-        return ResponseEntity.ok(gameService.CreateGame(game));
+        Game game = gameService.GetGameById(id);
+        return ResponseEntity.ok(game);
+    }
+
+    @PostMapping
+    public ResponseEntity<Game> CreateGame(@RequestBody Game game)
+    {
+        Game created = gameService.CreateGame(game);
+        return ResponseEntity.status(201).body(created);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Game> UpdateGame(@PathVariable Long id, @RequestBody Game updatedGame)
+    {
+        Game game = gameService.UpdateGame(id, updatedGame);
+        return ResponseEntity.ok(game);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteGame(@PathVariable Long id)
+    public ResponseEntity<Void> DeleteGame(@PathVariable Long id)
     {
         gameService.DeleteGame(id);
         return ResponseEntity.noContent().build();
