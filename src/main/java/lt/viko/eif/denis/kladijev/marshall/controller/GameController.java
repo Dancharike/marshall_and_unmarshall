@@ -1,9 +1,9 @@
-package controller;
+package lt.viko.eif.denis.kladijev.marshall.controller;
 
-import model.Game;
+import lt.viko.eif.denis.kladijev.marshall.model.Game;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import service.GameService;
+import lt.viko.eif.denis.kladijev.marshall.service.GameService;
 
 import java.util.List;
 

@@ -1,9 +1,9 @@
-package controller;
+package lt.viko.eif.denis.kladijev.marshall.controller;
 
-import model.InventoryItem;
+import lt.viko.eif.denis.kladijev.marshall.model.InventoryItem;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import service.InventoryService;
+import lt.viko.eif.denis.kladijev.marshall.service.InventoryService;
 
 import java.util.List;
 

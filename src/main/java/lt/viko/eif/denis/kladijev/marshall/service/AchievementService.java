@@ -1,10 +1,10 @@
-package service;
+package lt.viko.eif.denis.kladijev.marshall.service;
 
-import model.Achievement;
-import model.Player;
+import lt.viko.eif.denis.kladijev.marshall.model.Achievement;
+import lt.viko.eif.denis.kladijev.marshall.model.Player;
 import org.springframework.stereotype.Service;
-import repository.AchievementRepository;
-import repository.PlayerRepository;
+import lt.viko.eif.denis.kladijev.marshall.repository.AchievementRepository;
+import lt.viko.eif.denis.kladijev.marshall.repository.PlayerRepository;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class AchievementService
     public List<Achievement> GetAchievementsByPlayerId(Long playerId)
     {
         Player player = playerRepository.findById(playerId).orElseThrow(() -> new RuntimeException("Player not found with id: " + playerId));
-        return achievementRepository.FindByPlayerId(player.getId());
+        return achievementRepository.FindByPlayer_Id(player.getId());
     }
 
     public Achievement CreateAchievement(Long playerId ,Achievement achievement)

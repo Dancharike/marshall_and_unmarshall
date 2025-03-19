@@ -1,8 +1,8 @@
-package service;
+package lt.viko.eif.denis.kladijev.marshall.service;
 
-import model.Player;
+import lt.viko.eif.denis.kladijev.marshall.model.Player;
 import org.springframework.stereotype.Service;
-import repository.PlayerRepository;
+import lt.viko.eif.denis.kladijev.marshall.repository.PlayerRepository;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package repository;
+package lt.viko.eif.denis.kladijev.marshall.repository;
 
-import model.Game;
+import lt.viko.eif.denis.kladijev.marshall.model.Game;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,9 +1,9 @@
-package controller;
+package lt.viko.eif.denis.kladijev.marshall.controller;
 
-import model.Achievement;
+import lt.viko.eif.denis.kladijev.marshall.model.Achievement;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import service.AchievementService;
+import lt.viko.eif.denis.kladijev.marshall.service.AchievementService;
 
 import java.util.List;
 

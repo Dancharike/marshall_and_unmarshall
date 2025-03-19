@@ -1,4 +1,4 @@
-package model;
+package lt.viko.eif.denis.kladijev.marshall.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
