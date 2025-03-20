@@ -1,3 +1,4 @@
+/*
 package lt.viko.eif.denis.kladijev.marshall.service;
 
 import lt.viko.eif.denis.kladijev.marshall.model.InventoryItem;
@@ -39,3 +40,4 @@ public class InventoryService
         inventoryItemRepository.delete(item);
     }
 }
+*/

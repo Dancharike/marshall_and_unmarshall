@@ -1,3 +1,4 @@
+/*
 package lt.viko.eif.denis.kladijev.marshall.repository;
 
 import lt.viko.eif.denis.kladijev.marshall.model.InventoryItem;
@@ -9,3 +10,4 @@ public interface InventoryItemRepository extends JpaRepository<InventoryItem, Lo
 {
     List<InventoryItem> FindByPlayerId(Long playerId);
 }
+*/

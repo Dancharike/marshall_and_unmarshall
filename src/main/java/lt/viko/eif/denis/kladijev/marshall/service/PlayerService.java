@@ -1,3 +1,4 @@
+/*
 package lt.viko.eif.denis.kladijev.marshall.service;
 
 import lt.viko.eif.denis.kladijev.marshall.model.Player;
@@ -54,3 +55,4 @@ public class PlayerService
         return playerRepository.findByNickName(nickname).orElseThrow(() -> new RuntimeException("Player not found with nickname: " + nickname));
     }
 }
+*/

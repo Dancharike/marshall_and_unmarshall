@@ -1,3 +1,4 @@
+/*
 package lt.viko.eif.denis.kladijev.marshall.repository;
 
 import lt.viko.eif.denis.kladijev.marshall.model.Achievement;
@@ -9,3 +10,4 @@ public interface AchievementRepository extends JpaRepository<Achievement, Long>
 {
     List<Achievement> FindByPlayer_Id(Long playerId);
 }
+*/

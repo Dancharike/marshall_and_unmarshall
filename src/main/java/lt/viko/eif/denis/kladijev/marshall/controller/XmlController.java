@@ -1,3 +1,4 @@
+/*
 package lt.viko.eif.denis.kladijev.marshall.controller;
 
 import lt.viko.eif.denis.kladijev.marshall.model.Player;
@@ -30,3 +31,4 @@ public class XmlController
         return xmlService.LoadPlayerFromXml("player.xml");
     }
 }
+*/

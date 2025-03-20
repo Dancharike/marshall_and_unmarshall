@@ -1,3 +1,4 @@
+/*
 package lt.viko.eif.denis.kladijev.marshall.controller;
 
 import lt.viko.eif.denis.kladijev.marshall.model.InventoryItem;
@@ -38,3 +39,4 @@ public class InventoryItemController
         return ResponseEntity.noContent().build();
     }
 }
+*/

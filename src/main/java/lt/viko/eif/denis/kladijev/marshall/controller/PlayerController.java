@@ -1,3 +1,4 @@
+/*
 package lt.viko.eif.denis.kladijev.marshall.controller;
 
 import lt.viko.eif.denis.kladijev.marshall.model.Player;
@@ -59,3 +60,4 @@ public class PlayerController
         return ResponseEntity.ok(player);
     }
 }
+*/

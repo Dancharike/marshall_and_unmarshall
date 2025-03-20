@@ -1,3 +1,4 @@
+/*
 package lt.viko.eif.denis.kladijev.marshall.config;
 
 import jakarta.xml.bind.JAXBContext;
@@ -33,3 +34,4 @@ public class XmlConfig
         return context.createUnmarshaller();
     }
 }
+*/

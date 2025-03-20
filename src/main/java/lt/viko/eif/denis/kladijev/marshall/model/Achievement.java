@@ -1,32 +1,48 @@
 package lt.viko.eif.denis.kladijev.marshall.model;
 
 import jakarta.persistence.*;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 import java.time.LocalDateTime;
 
+/**
+ * Basic model of a player's achievements.
+ * The class has fields such as: id, achievementName, achievementDescription, dateAchieved.
+ * Also provided links to Player's and Game's classes.
+ */
+
 @Entity
+@XmlRootElement(name = "Achievement")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Achievement
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String title;
-    private String description;
-    private LocalDateTime dateAchieved;
+    @XmlElement private String achievementName;
+    @XmlElement private String achievementDescription;
+    @XmlElement private LocalDateTime dateAchieved;
 
     @ManyToOne
     @JoinColumn(name = "player_id")
     private Player player;
 
+    @ManyToOne
+    @JoinColumn(name = "game_id")
+    private Game game;
+
     public Achievement() {}
 
-    public Achievement(String title, String description, LocalDateTime dateAchieved, Player player)
+    public Achievement(String name, String description, LocalDateTime dateAchieved, Player player, Game game)
     {
-        this.title = title;
-        this.description = description;
+        this.achievementName = name;
+        this.achievementDescription = description;
         this.dateAchieved = dateAchieved;
         this.player = player;
+        this.game = game;
     }
 
     public Long getId() {
@@ -37,20 +53,20 @@ public class Achievement
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return achievementName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.achievementName = name;
     }
 
     public String getDescription() {
-        return description;
+        return achievementDescription;
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        this.achievementDescription = description;
     }
 
     public LocalDateTime getDateAchieved() {
@@ -69,14 +85,23 @@ public class Achievement
         this.player = player;
     }
 
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
     @Override
     public String toString() {
         return "Achievement{" +
                 "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
+                ", name='" + achievementName + '\'' +
+                ", description='" + achievementDescription + '\'' +
                 ", dateAchieved=" + dateAchieved +
                 ", player=" + player +
+                ", game=" + game +
                 '}';
     }
 }

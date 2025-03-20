@@ -1,30 +1,46 @@
 package lt.viko.eif.denis.kladijev.marshall.model;
 
 import jakarta.persistence.*;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+/**
+ * Basic model of a player's inventory items.
+ * The class has fields such as: id, itemName, itemDescription, cost.
+ * There are also provided links to Player's and Game's classes.
+ */
 
 @Entity
+@XmlRootElement(name = "InventoryItem")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class InventoryItem
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String itemName;
-    private String itemType;
-    private int quantity;
+    @XmlElement private String itemName;
+    @XmlElement private String itemDescription;
+    @XmlElement private float cost;
 
     @ManyToOne
     @JoinColumn(name = "player_id")
     private Player player;
 
+    @ManyToOne
+    @JoinColumn(name = "game_id")
+    private Game game;
+
     public InventoryItem() {}
 
-    public InventoryItem(String itemName, String itemType, int quantity, Player player)
+    public InventoryItem(String itemName, String itemDescription, float cost, Player player, Game game)
     {
         this.itemName = itemName;
-        this.itemType = itemType;
-        this.quantity = quantity;
+        this.itemDescription = itemDescription;
+        this.cost = cost;
         this.player = player;
+        this.game = game;
     }
 
     public Long getId() {
@@ -43,20 +59,20 @@ public class InventoryItem
         this.itemName = itemName;
     }
 
-    public String getItemType() {
-        return itemType;
+    public String getItemDescription() {
+        return itemDescription;
     }
 
-    public void setItemType(String itemType) {
-        this.itemType = itemType;
+    public void setItemDescription(String itemDescription) {
+        this.itemDescription = itemDescription;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public float getCost() {
+        return cost;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setCost(float cost) {
+        this.cost = cost;
     }
 
     public Player getPlayer() {
@@ -67,14 +83,23 @@ public class InventoryItem
         this.player = player;
     }
 
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
     @Override
     public String toString() {
         return "InventoryItem{" +
                 "id=" + id +
                 ", itemName='" + itemName + '\'' +
-                ", itemType='" + itemType + '\'' +
-                ", quantity=" + quantity +
+                ", itemDescription='" + itemDescription + '\'' +
+                ", cost=" + cost +
                 ", player=" + player +
+                ", game=" + game +
                 '}';
     }
 }

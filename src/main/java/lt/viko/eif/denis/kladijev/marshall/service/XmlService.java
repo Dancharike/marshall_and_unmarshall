@@ -1,10 +1,10 @@
+/*
 package lt.viko.eif.denis.kladijev.marshall.service;
 
 import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 import lt.viko.eif.denis.kladijev.marshall.model.Player;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.xml.transform.stream.StreamResult;
@@ -50,3 +50,4 @@ public class XmlService
         }
     }
 }
+*/
