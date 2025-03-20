@@ -1,43 +1,64 @@
-/*
 package lt.viko.eif.denis.kladijev.marshall.service;
 
 import lt.viko.eif.denis.kladijev.marshall.model.InventoryItem;
-import lt.viko.eif.denis.kladijev.marshall.model.Player;
+import lt.viko.eif.denis.kladijev.marshall.service.abstraction.AbstractCrudService;
 import org.springframework.stereotype.Service;
 import lt.viko.eif.denis.kladijev.marshall.repository.InventoryItemRepository;
-import lt.viko.eif.denis.kladijev.marshall.repository.PlayerRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class InventoryService
+public class InventoryService extends AbstractCrudService<InventoryItem, Long>
 {
-    private final InventoryItemRepository inventoryItemRepository;
-    private final PlayerRepository playerRepository;
+    private final InventoryItemRepository repository;
 
-    public InventoryService(InventoryItemRepository inventoryItemRepository, PlayerRepository playerRepository)
+    public InventoryService(InventoryItemRepository inventoryRepository)
     {
-        this.inventoryItemRepository = inventoryItemRepository;
-        this.playerRepository = playerRepository;
+        this.repository = inventoryRepository;
     }
 
-    public List<InventoryItem> GetInventoryByPlayerId(Long playerId)
+    @Override
+    public List<InventoryItem> getAll()
     {
-        Player player = playerRepository.findById(playerId).orElseThrow(() -> new RuntimeException("Player not found with id: " + playerId));
-        return inventoryItemRepository.FindByPlayerId(player.getId());
+        return repository.findAll();
     }
 
-    public InventoryItem AddItemToInventory(Long playerId ,InventoryItem item)
+    @Override
+    public Optional<InventoryItem> getById(Long id)
     {
-        Player player = playerRepository.findById(playerId).orElseThrow(() -> new RuntimeException("Player not found with id: " + playerId));
-        item.setPlayer(player);
-        return inventoryItemRepository.save(item);
+        return repository.findById(id);
     }
 
-    public void DeleteItem(Long id)
+    @Override
+    public InventoryItem save(InventoryItem item)
     {
-        InventoryItem item = inventoryItemRepository.findById(id).orElseThrow(() -> new RuntimeException("Item not found with id: " + id));
-        inventoryItemRepository.delete(item);
+        return repository.save(item);
+    }
+
+    @Override
+    public void delete(Long id)
+    {
+        repository.deleteById(id);
+    }
+
+    /**
+     * Get InventoryItem by playerId.
+     * @param playerId player ID itself.
+     * @return returns playerId.
+     */
+    public List<InventoryItem> getByPlayerId(Long playerId)
+    {
+        return repository.findByPlayerId(playerId);
+    }
+
+    /**
+     * Get InventoryItem by gameId.
+     * @param gameId game ID itself.
+     * @return returns gameId.
+     */
+    public List<InventoryItem> getByGameId(Long gameId)
+    {
+        return repository.findByGameId(gameId);
     }
 }
-*/

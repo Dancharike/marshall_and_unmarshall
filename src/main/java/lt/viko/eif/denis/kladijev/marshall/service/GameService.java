@@ -1,50 +1,54 @@
-/*
 package lt.viko.eif.denis.kladijev.marshall.service;
 
 import lt.viko.eif.denis.kladijev.marshall.model.Game;
+import lt.viko.eif.denis.kladijev.marshall.service.abstraction.AbstractCrudService;
 import org.springframework.stereotype.Service;
 import lt.viko.eif.denis.kladijev.marshall.repository.GameRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class GameService
+public class GameService extends AbstractCrudService<Game, Long>
 {
-    private final GameRepository gameRepository;
+    private final GameRepository repository;
 
     public GameService(GameRepository gameRepository)
     {
-        this.gameRepository = gameRepository;
+        this.repository = gameRepository;
     }
 
-    public List<Game> GetAllGames()
+    @Override
+    public List<Game> getAll()
     {
-        return gameRepository.findAll();
+        return repository.findAll();
     }
 
-    public Game GetGameById(Long id)
+    @Override
+    public Optional<Game> getById(Long id)
     {
-        return gameRepository.findById(id).orElseThrow(() -> new RuntimeException("Game not found with id: " + id));
+        return repository.findById(id);
     }
 
-    public Game CreateGame(Game game)
+    @Override
+    public Game save(Game game)
     {
-        return gameRepository.save(game);
+        return repository.save(game);
     }
 
-    public Game UpdateGame(Long id, Game updatedGame)
+    @Override
+    public void delete(Long id)
     {
-        Game existingGame = GetGameById(id);
-        existingGame.setTitle(updatedGame.getTitle());
-        existingGame.setGenre(updatedGame.getGenre());
-
-        return gameRepository.save(existingGame);
+        repository.deleteById(id);
     }
 
-    public void DeleteGame(Long id)
+    /**
+     * Get player by ID.
+     * @param playerId ID itself.
+     * @return player ID found by method.
+     */
+    public List<Game> getByPlayerId(Long playerId)
     {
-        GetGameById(id);
-        gameRepository.deleteById(id);
+        return repository.findByPlayerId(playerId);
     }
 }
-*/

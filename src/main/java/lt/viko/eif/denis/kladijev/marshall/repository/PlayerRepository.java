@@ -1,4 +1,3 @@
-/*
 package lt.viko.eif.denis.kladijev.marshall.repository;
 
 import lt.viko.eif.denis.kladijev.marshall.model.Player;
@@ -10,4 +9,3 @@ public interface PlayerRepository extends JpaRepository<Player, Long>
 {
     Optional<Player> findByNickName(String nickname);
 }
-*/

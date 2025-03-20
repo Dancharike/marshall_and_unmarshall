@@ -1,48 +1,64 @@
-/*
 package lt.viko.eif.denis.kladijev.marshall.service;
 
 import lt.viko.eif.denis.kladijev.marshall.model.Achievement;
-import lt.viko.eif.denis.kladijev.marshall.model.Player;
+import lt.viko.eif.denis.kladijev.marshall.service.abstraction.AbstractCrudService;
 import org.springframework.stereotype.Service;
 import lt.viko.eif.denis.kladijev.marshall.repository.AchievementRepository;
-import lt.viko.eif.denis.kladijev.marshall.repository.PlayerRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class AchievementService
+public class AchievementService extends AbstractCrudService<Achievement, Long>
 {
-    private final AchievementRepository achievementRepository;
-    private final PlayerRepository playerRepository;
+    private final AchievementRepository repository;
 
-    public AchievementService(AchievementRepository achievementRepository, PlayerRepository playerRepository)
+    public AchievementService(AchievementRepository achievementRepository)
     {
-        this.achievementRepository = achievementRepository;
-        this.playerRepository = playerRepository;
+        this.repository = achievementRepository;
     }
 
-    public List<Achievement> GetAllAchievements()
+    @Override
+    public List<Achievement> getAll()
     {
-        return achievementRepository.findAll();
+        return repository.findAll();
     }
 
-    public List<Achievement> GetAchievementsByPlayerId(Long playerId)
+    @Override
+    public Optional<Achievement> getById(Long id)
     {
-        Player player = playerRepository.findById(playerId).orElseThrow(() -> new RuntimeException("Player not found with id: " + playerId));
-        return achievementRepository.FindByPlayer_Id(player.getId());
+        return repository.findById(id);
     }
 
-    public Achievement CreateAchievement(Long playerId ,Achievement achievement)
+    @Override
+    public Achievement save(Achievement achievement)
     {
-        Player player = playerRepository.findById(playerId).orElseThrow(() -> new RuntimeException("Player not found with id: " + playerId));
-        achievement.setPlayer(player);
-        return achievementRepository.save(achievement);
+        return repository.save(achievement);
     }
 
-    public void DeleteAchievement(Long id)
+    @Override
+    public void delete(Long id)
     {
-        Achievement achievement = achievementRepository.findById(id).orElseThrow(() -> new RuntimeException("Achievement not found with id: " + id));
-        achievementRepository.delete(achievement);
+        repository.deleteById(id);
+    }
+
+    /**
+     * Extra method for getting achievement by playerId.
+     * @param playerId ID itself.
+     * @return returns playerId.
+     */
+    public List<Achievement> getByPlayerId(Long playerId)
+    {
+        return repository.findByPlayerId(playerId);
+    }
+
+    /**
+     * Extra method for getting achievement by gameId.
+     * @param gameId game ID itself.
+     * @return returns gameId.
+     */
+    public List<Achievement> getByGameId(Long gameId)
+    {
+        return repository.findByGameId(gameId);
     }
 }
-*/

@@ -1,58 +1,54 @@
-/*
 package lt.viko.eif.denis.kladijev.marshall.service;
 
 import lt.viko.eif.denis.kladijev.marshall.model.Player;
+import lt.viko.eif.denis.kladijev.marshall.service.abstraction.AbstractCrudService;
 import org.springframework.stereotype.Service;
 import lt.viko.eif.denis.kladijev.marshall.repository.PlayerRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
-public class PlayerService
+public class PlayerService extends AbstractCrudService<Player, Long>
 {
-    private final PlayerRepository playerRepository;
+    private final PlayerRepository repository;
 
     public PlayerService(PlayerRepository playerRepository)
     {
-        this.playerRepository = playerRepository;
+        this.repository = playerRepository;
     }
 
-    public List<Player> GetAllPlayers()
+    @Override
+    public List<Player> getAll()
     {
-        return playerRepository.findAll();
+        return repository.findAll();
     }
 
-    public Player GetPlayerById(Long id)
+    @Override
+    public Optional<Player> getById(Long id)
     {
-        return playerRepository.findById(id).orElseThrow(() -> new RuntimeException("Player not found with id: " + id));
+        return repository.findById(id);
     }
 
-    public Player CreatePlayer(Player player)
+    @Override
+    public Player save(Player player)
     {
-        return playerRepository.save(player);
+        return repository.save(player);
     }
 
-    public Player UpdatePlayer(Long id, Player updatedPlayer)
+    @Override
+    public void delete(Long id)
     {
-        Player existingPlayer = GetPlayerById(id);
-        existingPlayer.setNickName(updatedPlayer.getNickName());
-        existingPlayer.setLevel(updatedPlayer.getLevel());
-        existingPlayer.setExperience(updatedPlayer.getExperience());
-        existingPlayer.setAchievements(updatedPlayer.getAchievements());
-        existingPlayer.setInventory(updatedPlayer.getInventory());
-
-        return playerRepository.save(existingPlayer);
+        repository.deleteById(id);
     }
 
-    public void DeletePlayer(Long Id)
+    /**
+     * Extra method for flexible finding of a player by nickname.
+     * @param nickName Player nickname.
+     * @return Returns specified nickname.
+     */
+    public Optional<Player> getByNickName(String nickName)
     {
-        GetPlayerById(Id);
-        playerRepository.deleteById(Id);
-    }
-
-    public Player FindByNickName(String nickname)
-    {
-        return playerRepository.findByNickName(nickname).orElseThrow(() -> new RuntimeException("Player not found with nickname: " + nickname));
+        return repository.findByNickName(nickName);
     }
 }
-*/
