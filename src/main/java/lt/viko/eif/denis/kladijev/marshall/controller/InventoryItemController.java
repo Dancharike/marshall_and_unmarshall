@@ -1,4 +1,3 @@
-/*
 package lt.viko.eif.denis.kladijev.marshall.controller;
 
 import lt.viko.eif.denis.kladijev.marshall.model.InventoryItem;
@@ -7,36 +6,42 @@ import org.springframework.web.bind.annotation.*;
 import lt.viko.eif.denis.kladijev.marshall.service.InventoryService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/inventory")
 public class InventoryItemController
 {
-    private final InventoryService inventoryService;
+    private final InventoryService service;
 
-    public InventoryItemController(InventoryService inventoryService)
+    public InventoryItemController(InventoryService service)
     {
-        this.inventoryService = inventoryService;
+        this.service = service;
     }
 
-    @GetMapping("/player/{playerId}")
-    public ResponseEntity<List<InventoryItem>> GetInventoryByPlayerId(@PathVariable Long playerId)
+    @GetMapping
+    public List<InventoryItem> getAllInventoryItems()
     {
-        return ResponseEntity.ok(inventoryService.GetInventoryByPlayerId(playerId));
+        return service.getAll();
     }
 
-    @PostMapping("/player/{playerId}")
-    public ResponseEntity<InventoryItem> AddItemToInventory(@PathVariable Long playerId, @RequestBody InventoryItem item)
+    @GetMapping("/{id}")
+    public ResponseEntity<InventoryItem> getInventoryItemById(@PathVariable Long id)
     {
-        InventoryItem createdItem = inventoryService.AddItemToInventory(playerId, item);
-        return ResponseEntity.status(201).body(createdItem);
+        Optional<InventoryItem> item = service.getById(id);
+        return item.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{itemId}")
-    public ResponseEntity<Void> DeleteItem(@PathVariable Long itemId)
+    @PostMapping
+    public InventoryItem createInventoryItem(@RequestBody InventoryItem inventoryItem)
     {
-        inventoryService.DeleteItem(itemId);
+        return service.save(inventoryItem);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteInventoryItem(@PathVariable Long id)
+    {
+        service.delete(id);
         return ResponseEntity.noContent().build();
     }
 }
-*/

@@ -1,0 +1,58 @@
+﻿### Add new player
+POST http://localhost:8080/api/players
+Content-Type: application/json
+
+{
+  "nickName": "Denis",
+  "email": "denis@example.com",
+  "level": 5,
+  "experience": 1000
+}
+
+### Get all players
+GET http://localhost:8080/api/players
+Accept: application/json
+
+### Add game to player
+POST http://localhost:8080/api/games/player/2
+Content-Type: application/json
+
+{
+  "gameTitle": "Fallout 2",
+  "gameGenre": "Isometric RPG",
+  "gameDescription": "Fallout 2: A Post Nuclear Role Playing Game is the sequel to the original Fallout."
+}
+
+### Get all games
+GET http://localhost:8080/api/games
+Accept: application/json
+
+### Add achievement to game and player
+POST http://localhost:8080/api/achievements/player/2/game/1
+Content-Type: application/json
+
+{
+  "achievementName": "Radiation burns away",
+  "achievementDescription": "Radiation exposure killed you",
+  "dateAchieved": "2025-03-20T12:00:00"
+}
+
+### Get all achievements
+GET http://localhost:8080/api/achievements
+Accept: application/json
+
+### Add an item to player and game
+POST http://localhost:8080/api/inventory/player/2/game/1
+Content-Type: application/json
+
+{
+  "itemName": "T-51b Power Armour Helmet",
+  "itemDescription": "Helmet of power armour used in Anchorage siege in 2067"
+}
+
+### Get all inventory items
+GET http://localhost:8080/api/inventory
+Accept: application/json
+
+### Export player to XML file
+GET http://localhost:8080/api/xml/export/player/2

@@ -1,4 +1,3 @@
-/*
 package lt.viko.eif.denis.kladijev.marshall.controller;
 
 import lt.viko.eif.denis.kladijev.marshall.model.Player;
@@ -7,57 +6,42 @@ import org.springframework.web.bind.annotation.*;
 import lt.viko.eif.denis.kladijev.marshall.service.PlayerService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/player")
+@RequestMapping("/api/players")
 public class PlayerController
 {
-    private final PlayerService playerServices;
+    private final PlayerService services;
 
-    public PlayerController(PlayerService playerServices)
+    public PlayerController(PlayerService services)
     {
-        this.playerServices = playerServices;
+        this.services = services;
     }
 
     @GetMapping
-    public ResponseEntity<List<Player>> GetAllPlayers()
+    public List<Player> getAllPlayers()
     {
-        return ResponseEntity.ok(playerServices.GetAllPlayers());
+        return services.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Player> GetPlayerById(@PathVariable Long id)
+    public ResponseEntity<Player> getPlayerById(@PathVariable Long id)
     {
-        Player player = playerServices.GetPlayerById(id);
-        return ResponseEntity.ok(player);
+        Optional<Player> player = services.getById(id);
+        return player.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<Player> CreatePlayer(@RequestBody Player player)
+    public Player createPlayer(@RequestBody Player player)
     {
-        Player createdPlayer = playerServices.CreatePlayer(player);
-        return ResponseEntity.status(201).body(createdPlayer);
-    }
-
-    @PutMapping("/{id}")
-    public ResponseEntity<Player> UpdatePlayer(@PathVariable Long id, @RequestBody Player updatedPlayer)
-    {
-        Player player = playerServices.UpdatePlayer(id, updatedPlayer);
-        return ResponseEntity.ok(player);
+        return services.save(player);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> DeletePlayer(@PathVariable Long id)
+    public ResponseEntity<Void> deletePlayer(@PathVariable Long id)
     {
-        playerServices.DeletePlayer(id);
+        services.delete(id);
         return ResponseEntity.noContent().build();
     }
-
-    @GetMapping("/search")
-    public ResponseEntity<Player> FindByNickName(@RequestParam String nickname)
-    {
-        Player player = playerServices.FindByNickName(nickname);
-        return ResponseEntity.ok(player);
-    }
 }
-*/

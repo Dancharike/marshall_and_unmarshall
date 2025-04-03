@@ -1,10 +1,10 @@
 package lt.viko.eif.denis.kladijev.marshall.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import lt.viko.eif.denis.kladijev.marshall.utility.LongToStringAdapter;
 
 import java.util.List;
 
@@ -21,6 +21,9 @@ public class Game
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @XmlJavaTypeAdapter(LongToStringAdapter.class)
+    @XmlID
+    @XmlAttribute(name = "id")
     private Long id;
     @XmlElement private String gameTitle;
     @XmlElement private String gameGenre;
@@ -28,14 +31,16 @@ public class Game
 
     @ManyToOne
     @JoinColumn(name = "player_id")
+    @XmlIDREF
+    @JsonBackReference
     private Player player;
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
-    @XmlElement(name = "Achievement")
+    @XmlTransient
     private List<Achievement> achievements;
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)
-    @XmlElement(name = "InventoryItem")
+    @XmlTransient
     private List<InventoryItem> inventoryItems;
 
     public Game() {}

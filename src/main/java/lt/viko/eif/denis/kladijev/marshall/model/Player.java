@@ -1,16 +1,20 @@
 package lt.viko.eif.denis.kladijev.marshall.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import lt.viko.eif.denis.kladijev.marshall.utility.LongToStringAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Basic model of a player that includes: id, nickname, email, level, experience of a player.
  * Additionally, there are Lists of player's: games, achievements and inventory items.
+ * Also, this class calculates total amount of player's achievements and items.
  */
 
 @Entity
@@ -20,6 +24,9 @@ public class Player
 {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @XmlJavaTypeAdapter(LongToStringAdapter.class)
+    @XmlID
+    @XmlAttribute(name = "id")
     private Long id;
     @XmlElement private String nickName;
     @XmlElement private String email;
@@ -27,16 +34,62 @@ public class Player
     @XmlElement private int experience;
 
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
+    @XmlElementWrapper(name = "Games")
     @XmlElement(name = "Game")
-    private List<Game> games;
+    @JsonManagedReference
+    private List<Game> games = new ArrayList<>();
 
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
+    @XmlElementWrapper(name = "Achievements")
     @XmlElement(name = "Achievement")
-    private List<Achievement> achievements;
+    @JsonIgnore
+    private List<Achievement> achievements = new ArrayList<>();
 
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
+    @XmlElementWrapper(name = "Inventory")
     @XmlElement(name = "InventoryItem")
-    private List<InventoryItem> inventory;
+    @JsonIgnore
+    private List<InventoryItem> inventory = new ArrayList<>();
+
+    /**
+     * Public method for calculating total amount of player's achievements.
+     * @return total number of achievements.
+     */
+
+    @Transient
+    @XmlElement
+    @JsonProperty("totalAchievements")
+    public int getTotalAchievements()
+    {
+        int total = 0;
+        total += (achievements != null) ? achievements.size() : 0;
+
+        for(Game game : games)
+        {
+            total += (game.getAchievements() != null) ? game.getAchievements().size() : 0;
+        }
+        return total;
+    }
+
+    /**
+     * Public method for calculating total amount of player's items.
+     * @return total number of items.
+     */
+
+    @Transient
+    @XmlElement
+    @JsonProperty("totalInventoryItems")
+    public int getTotalInventoryItems()
+    {
+        int total = 0;
+        total += (inventory != null) ? inventory.size() : 0;
+
+        for(Game game : games)
+        {
+            total += (game.getInventoryItems() != null) ? game.getInventoryItems().size() : 0;
+        }
+        return total;
+    }
 
     public Player() {}
 

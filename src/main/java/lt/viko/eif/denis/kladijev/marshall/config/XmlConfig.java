@@ -1,4 +1,3 @@
-/*
 package lt.viko.eif.denis.kladijev.marshall.config;
 
 import jakarta.xml.bind.JAXBContext;
@@ -11,27 +10,27 @@ import lt.viko.eif.denis.kladijev.marshall.model.InventoryItem;
 import lt.viko.eif.denis.kladijev.marshall.model.Player;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 
 @Configuration
 public class XmlConfig
 {
     @Bean
-    public JAXBContext JaxbContext() throws JAXBException
+    public JAXBContext jaxbContext() throws JAXBException
     {
-        return JAXBContext.newInstance(Player.class);
+        return JAXBContext.newInstance(Player.class, Game.class, Achievement.class, InventoryItem.class);
     }
 
     @Bean
-    public Marshaller Marshaller(JAXBContext context) throws JAXBException
+    public Marshaller marshaller(JAXBContext context) throws JAXBException
     {
-        return context.createMarshaller();
+        Marshaller marshaller = context.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        return marshaller;
     }
 
     @Bean
-    public Unmarshaller Unmarshaller(JAXBContext context) throws JAXBException
+    public Unmarshaller unmarshaller(JAXBContext context) throws JAXBException
     {
         return context.createUnmarshaller();
     }
 }
-*/

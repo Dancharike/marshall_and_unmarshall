@@ -1,4 +1,3 @@
-/*
 package lt.viko.eif.denis.kladijev.marshall.controller;
 
 import lt.viko.eif.denis.kladijev.marshall.model.Achievement;
@@ -7,42 +6,42 @@ import org.springframework.web.bind.annotation.*;
 import lt.viko.eif.denis.kladijev.marshall.service.AchievementService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/achievements")
 public class AchievementController
 {
-    private final AchievementService achievementService;
+    private final AchievementService service;
 
-    public AchievementController(AchievementService achievementService)
+    public AchievementController(AchievementService service)
     {
-        this.achievementService = achievementService;
+        this.service = service;
     }
 
     @GetMapping
-    public ResponseEntity<List<Achievement>> GetAllAchievements()
+    public List<Achievement> getAllAchievements()
     {
-        return ResponseEntity.ok(achievementService.GetAllAchievements());
+        return service.getAll();
     }
 
-    @GetMapping("/player/{playerId}")
-    public ResponseEntity<List<Achievement>> GetAchievementsByPlayerId(@PathVariable Long playerId)
+    @GetMapping("/{id}")
+    public ResponseEntity<Achievement> getAchievementById(@PathVariable Long id)
     {
-        return ResponseEntity.ok(achievementService.GetAchievementsByPlayerId(playerId));
+        Optional<Achievement> achievement = service.getById(id);
+        return achievement.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("/player/{playerId}")
-    public ResponseEntity<Achievement> CreateAchievement(@PathVariable Long playerId, @RequestBody Achievement achievement)
+    @PostMapping
+    public Achievement createAchievement(@RequestBody Achievement achievement)
     {
-        Achievement created = achievementService.CreateAchievement(playerId, achievement);
-        return ResponseEntity.status(201).body(created);
+        return service.save(achievement);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> DeleteAchievement(@PathVariable Long id)
+    public ResponseEntity<Void> deleteAchievement(@PathVariable Long id)
     {
-        achievementService.DeleteAchievement(id);
+        service.delete(id);
         return ResponseEntity.noContent().build();
     }
 }
-*/

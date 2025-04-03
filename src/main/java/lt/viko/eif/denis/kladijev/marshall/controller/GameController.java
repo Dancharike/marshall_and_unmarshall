@@ -1,4 +1,3 @@
-/*
 package lt.viko.eif.denis.kladijev.marshall.controller;
 
 import lt.viko.eif.denis.kladijev.marshall.model.Game;
@@ -7,50 +6,49 @@ import org.springframework.web.bind.annotation.*;
 import lt.viko.eif.denis.kladijev.marshall.service.GameService;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/games")
 public class GameController
 {
-    private final GameService gameService;
+    private final GameService service;
 
-    public GameController(GameService gameService)
+    public GameController(GameService service)
     {
-        this.gameService = gameService;
+        this.service = service;
     }
 
     @GetMapping
-    public ResponseEntity<List<Game>> GetAllGames()
+    public List<Game> getAllGames()
     {
-        return ResponseEntity.ok(gameService.GetAllGames());
+        return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Game> GetGameById(@PathVariable Long id)
+    public ResponseEntity<Game> getGameById(@PathVariable Long id)
     {
-        Game game = gameService.GetGameById(id);
-        return ResponseEntity.ok(game);
+        Optional<Game> game = service.getById(id);
+        return game.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<Game> CreateGame(@RequestBody Game game)
+    public Game createGame(@RequestBody Game game)
     {
-        Game created = gameService.CreateGame(game);
-        return ResponseEntity.status(201).body(created);
+        return service.save(game);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Game> UpdateGame(@PathVariable Long id, @RequestBody Game updatedGame)
+    @PostMapping("/player/{playerId}")
+    public ResponseEntity<Game> createGameForPlayer(@PathVariable Long playerId, @RequestBody Game game)
     {
-        Game game = gameService.UpdateGame(id, updatedGame);
-        return ResponseEntity.ok(game);
+        Game createdGame = service.createGameForPlayer(playerId, game);
+        return ResponseEntity.status(201).body(createdGame);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> DeleteGame(@PathVariable Long id)
+    public ResponseEntity<Void> deleteGame(@PathVariable Long id)
     {
-        gameService.DeleteGame(id);
+        service.delete(id);
         return ResponseEntity.noContent().build();
     }
 }
-*/

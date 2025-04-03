@@ -1,10 +1,7 @@
 package lt.viko.eif.denis.kladijev.marshall.model;
 
 import jakarta.persistence.*;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.*;
 
 /**
  * Basic model of a player's inventory items.
@@ -26,10 +23,12 @@ public class InventoryItem
 
     @ManyToOne
     @JoinColumn(name = "player_id")
+    @XmlIDREF
     private Player player;
 
     @ManyToOne
     @JoinColumn(name = "game_id")
+    @XmlIDREF
     private Game game;
 
     public InventoryItem() {}

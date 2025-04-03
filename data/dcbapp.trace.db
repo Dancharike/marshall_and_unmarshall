@@ -114,3 +114,15 @@ Wrong user name or password [28000-232]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:522)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
 	... 50 more
+2025-03-22 15:37:50.008713+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Синтаксическая ошибка в выражении SQL "[*]POST http://localhost:8080/api/players\000d\000aContent-Type: application/json\000d\000a\000d\000a \000d\000a  ""nickName"": ""Denis"",\000d\000a  ""email"": ""denis@example.com"",\000d\000a  ""level"": 1,\000d\000a  ""experience"": 100\000d\000a "; ожидалось "PREPARE"
+Syntax error in SQL statement "[*]POST http://localhost:8080/api/players\000d\000aContent-Type: application/json\000d\000a\000d\000a \000d\000a  ""nickName"": ""Denis"",\000d\000a  ""email"": ""denis@example.com"",\000d\000a  ""level"": 1,\000d\000a  ""experience"": 100\000d\000a "; expected "PREPARE"; SQL statement:
+POST http://localhost:8080/api/players
+Content-Type: application/json
+
+ 
+  "nickName": "Denis",
+  "email": "denis@example.com",
+  "level": 1,
+  "experience": 100
+  [42001-232]

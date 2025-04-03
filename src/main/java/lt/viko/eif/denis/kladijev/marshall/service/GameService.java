@@ -1,6 +1,8 @@
 package lt.viko.eif.denis.kladijev.marshall.service;
 
 import lt.viko.eif.denis.kladijev.marshall.model.Game;
+import lt.viko.eif.denis.kladijev.marshall.model.Player;
+import lt.viko.eif.denis.kladijev.marshall.repository.PlayerRepository;
 import lt.viko.eif.denis.kladijev.marshall.service.abstraction.AbstractCrudService;
 import org.springframework.stereotype.Service;
 import lt.viko.eif.denis.kladijev.marshall.repository.GameRepository;
@@ -12,10 +14,12 @@ import java.util.Optional;
 public class GameService extends AbstractCrudService<Game, Long>
 {
     private final GameRepository repository;
+    private final PlayerRepository playerRepository;
 
-    public GameService(GameRepository gameRepository)
+    public GameService(GameRepository gameRepository, PlayerRepository playerRepository)
     {
         this.repository = gameRepository;
+        this.playerRepository = playerRepository;
     }
 
     @Override
@@ -50,5 +54,12 @@ public class GameService extends AbstractCrudService<Game, Long>
     public List<Game> getByPlayerId(Long playerId)
     {
         return repository.findByPlayerId(playerId);
+    }
+
+    public Game createGameForPlayer(Long playerId, Game game)
+    {
+        Player player = playerRepository.findById(playerId).orElseThrow(() -> new RuntimeException("Player not found with id " + playerId));
+        game.setPlayer(player);
+        return repository.save(game);
     }
 }

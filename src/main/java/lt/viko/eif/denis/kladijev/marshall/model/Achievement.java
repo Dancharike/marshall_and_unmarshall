@@ -1,10 +1,9 @@
 package lt.viko.eif.denis.kladijev.marshall.model;
 
 import jakarta.persistence.*;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlElement;
-import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+import lt.viko.eif.denis.kladijev.marshall.utility.LocalDateTimeAdapter;
 
 import java.time.LocalDateTime;
 
@@ -24,14 +23,18 @@ public class Achievement
     private Long id;
     @XmlElement private String achievementName;
     @XmlElement private String achievementDescription;
-    @XmlElement private LocalDateTime dateAchieved;
+    @XmlElement
+    @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+    private LocalDateTime dateAchieved;
 
     @ManyToOne
     @JoinColumn(name = "player_id")
+    @XmlIDREF
     private Player player;
 
     @ManyToOne
     @JoinColumn(name = "game_id")
+    @XmlIDREF
     private Game game;
 
     public Achievement() {}

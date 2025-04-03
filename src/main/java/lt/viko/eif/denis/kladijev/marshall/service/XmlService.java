@@ -1,4 +1,3 @@
-/*
 package lt.viko.eif.denis.kladijev.marshall.service;
 
 import jakarta.xml.bind.Marshaller;
@@ -9,8 +8,7 @@ import org.springframework.stereotype.Service;
 
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
+import java.io.*;
 
 @Service
 public class XmlService
@@ -25,12 +23,12 @@ public class XmlService
         this.unmarshaller = unmarshaller;
     }
 
-    public void SavePlayerToXml(Player player, String filePath)
+    public void savePlayerToXml(Player player, String filePath)
     {
-        try(FileOutputStream fos = new FileOutputStream(filePath))
+        try (FileOutputStream fos = new FileOutputStream(filePath))
         {
             marshaller.marshal(player, new StreamResult(fos));
-            System.out.println("Saved player to XML: " + filePath);
+            System.out.println("Player saved to XML: " + filePath);
         }
         catch (Exception e)
         {
@@ -38,11 +36,13 @@ public class XmlService
         }
     }
 
-    public Player LoadPlayerFromXml(String filePath)
+    public Player loadPlayerFromXml(String filePath)
     {
-        try(FileInputStream fis = new FileInputStream(filePath))
+        try (FileInputStream fis = new FileInputStream(filePath))
         {
-            return (Player) unmarshaller.unmarshal(new StreamSource(fis));
+            Player player = (Player) unmarshaller.unmarshal(new StreamSource(fis));
+            System.out.println("Player loaded from XML: " + player);
+            return player;
         }
         catch (Exception e)
         {
@@ -50,4 +50,3 @@ public class XmlService
         }
     }
 }
-*/
