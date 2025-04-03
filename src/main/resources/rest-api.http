@@ -1,5 +1,7 @@
-﻿### Add new player
-POST http://localhost:8080/api/players
+﻿## Player requests
+
+### Create new player
+POST  http://localhost:8080/api/players
 Content-Type: application/json
 
 {
@@ -13,8 +15,17 @@ Content-Type: application/json
 GET http://localhost:8080/api/players
 Accept: application/json
 
+### Get player by ID
+GET http://localhost:8080/api/players/1
+Accept: application/json
+
+### Delete player by ID
+DELETE http://localhost:8080/api/players/1
+
+## Games requests
+
 ### Add game to player
-POST http://localhost:8080/api/games/player/2
+POST http://localhost:8080/api/games/player/1
 Content-Type: application/json
 
 {
@@ -27,32 +38,59 @@ Content-Type: application/json
 GET http://localhost:8080/api/games
 Accept: application/json
 
-### Add achievement to game and player
-POST http://localhost:8080/api/achievements/player/2/game/1
+### Get game by ID
+GET http://localhost:8080/api/games/2
+Accept: application/json
+
+### Delete game by ID
+DELETE http://localhost:8080/api/games/2
+
+## Achievements requests
+
+### Add new achievement to player
+POST http://localhost:8080/api/achievements
 Content-Type: application/json
 
 {
-  "achievementName": "Radiation burns away",
-  "achievementDescription": "Radiation exposure killed you",
-  "dateAchieved": "2025-03-20T12:00:00"
+  "achievementName": "World to dust",
+  "achievementDescription": "You have destroyed Enclave secret Oil Rig base, nice work!",
+  "dateAchieved": "2025-04-03T12:00:00",
+  "player": {"id" : 2},
+  "game": {"id" :  1}
 }
 
 ### Get all achievements
 GET http://localhost:8080/api/achievements
 Accept: application/json
 
-### Add an item to player and game
-POST http://localhost:8080/api/inventory/player/2/game/1
+### Get achievement by ID
+GET http://localhost:8080/api/achievements/3
+Accept: application/json
+
+### Delete achievement by ID
+DELETE http://localhost:8080/api/achievements/1
+
+## Items requests
+
+### Add new inventory item to player
+POST http://localhost:8080/api/inventory
 Content-Type: application/json
 
 {
-  "itemName": "T-51b Power Armour Helmet",
-  "itemDescription": "Helmet of power armour used in Anchorage siege in 2067"
+  "itemName": "T-51 power armour helmet",
+  "itemDescription": "Helmet of a legendary armour used in vast amount of battles, it is pretty rusty!",
+  "cost": 1000.0,
+  "player": {"id" : 2},
+  "game": {"id" : 1}
 }
 
 ### Get all inventory items
 GET http://localhost:8080/api/inventory
 Accept: application/json
 
-### Export player to XML file
-GET http://localhost:8080/api/xml/export/player/2
+### Get inventory item by ID
+GET http://localhost:8080/api/inventory/1
+Accept: application/json
+
+### Delete inventory item by ID
+DELETE http://localhost:8080/api/inventory/1

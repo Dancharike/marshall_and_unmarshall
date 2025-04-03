@@ -1,5 +1,8 @@
 package lt.viko.eif.denis.kladijev.marshall.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -13,6 +16,7 @@ import java.time.LocalDateTime;
  * Also provided links to Player's and Game's classes.
  */
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @XmlRootElement(name = "Achievement")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -25,6 +29,7 @@ public class Achievement
     @XmlElement private String achievementDescription;
     @XmlElement
     @XmlJavaTypeAdapter(LocalDateTimeAdapter.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dateAchieved;
 
     @ManyToOne
@@ -56,19 +61,19 @@ public class Achievement
         this.id = id;
     }
 
-    public String getName() {
+    public String getAchievementName() {
         return achievementName;
     }
 
-    public void setName(String name) {
+    public void setAchievementName(String name) {
         this.achievementName = name;
     }
 
-    public String getDescription() {
+    public String getAchievementDescription() {
         return achievementDescription;
     }
 
-    public void setDescription(String description) {
+    public void setAchievementDescription(String description) {
         this.achievementDescription = description;
     }
 

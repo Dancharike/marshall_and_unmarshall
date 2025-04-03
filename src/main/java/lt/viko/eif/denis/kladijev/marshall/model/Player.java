@@ -1,8 +1,6 @@
 package lt.viko.eif.denis.kladijev.marshall.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -17,6 +15,7 @@ import java.util.List;
  * Also, this class calculates total amount of player's achievements and items.
  */
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @XmlRootElement(name = "Player")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -36,7 +35,6 @@ public class Player
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
     @XmlElementWrapper(name = "Games")
     @XmlElement(name = "Game")
-    @JsonManagedReference
     private List<Game> games = new ArrayList<>();
 
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)

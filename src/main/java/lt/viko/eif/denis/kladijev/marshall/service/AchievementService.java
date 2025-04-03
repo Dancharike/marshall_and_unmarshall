@@ -1,6 +1,10 @@
 package lt.viko.eif.denis.kladijev.marshall.service;
 
 import lt.viko.eif.denis.kladijev.marshall.model.Achievement;
+import lt.viko.eif.denis.kladijev.marshall.model.Game;
+import lt.viko.eif.denis.kladijev.marshall.model.Player;
+import lt.viko.eif.denis.kladijev.marshall.repository.GameRepository;
+import lt.viko.eif.denis.kladijev.marshall.repository.PlayerRepository;
 import lt.viko.eif.denis.kladijev.marshall.service.abstraction.AbstractCrudService;
 import org.springframework.stereotype.Service;
 import lt.viko.eif.denis.kladijev.marshall.repository.AchievementRepository;
@@ -12,10 +16,14 @@ import java.util.Optional;
 public class AchievementService extends AbstractCrudService<Achievement, Long>
 {
     private final AchievementRepository repository;
+    private final PlayerRepository playerRepository;
+    private final GameRepository gameRepository;
 
-    public AchievementService(AchievementRepository achievementRepository)
+    public AchievementService(AchievementRepository achievementRepository, PlayerRepository playerRepository, GameRepository gameRepository)
     {
         this.repository = achievementRepository;
+        this.playerRepository = playerRepository;
+        this.gameRepository = gameRepository;
     }
 
     @Override
@@ -33,6 +41,10 @@ public class AchievementService extends AbstractCrudService<Achievement, Long>
     @Override
     public Achievement save(Achievement achievement)
     {
+        Player player = playerRepository.findById(achievement.getPlayer().getId()).orElseThrow(() -> new RuntimeException("Player not found"));
+        Game game = gameRepository.findById(achievement.getGame().getId()).orElseThrow(() -> new RuntimeException("Game not found"));
+        achievement.setPlayer(player);
+        achievement.setGame(game);
         return repository.save(achievement);
     }
 

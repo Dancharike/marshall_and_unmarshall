@@ -1,6 +1,8 @@
 package lt.viko.eif.denis.kladijev.marshall.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -14,6 +16,7 @@ import java.util.List;
  * Also provided link to Player's, Achievement's and InventoryItem's classes.
  */
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @XmlRootElement(name = "Game")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -32,7 +35,6 @@ public class Game
     @ManyToOne
     @JoinColumn(name = "player_id")
     @XmlIDREF
-    @JsonBackReference
     private Player player;
 
     @OneToMany(mappedBy = "game", cascade = CascadeType.ALL, orphanRemoval = true)

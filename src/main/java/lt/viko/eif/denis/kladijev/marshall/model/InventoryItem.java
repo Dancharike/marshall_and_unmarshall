@@ -1,5 +1,7 @@
 package lt.viko.eif.denis.kladijev.marshall.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.xml.bind.annotation.*;
 
@@ -9,6 +11,7 @@ import jakarta.xml.bind.annotation.*;
  * There are also provided links to Player's and Game's classes.
  */
 
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @XmlRootElement(name = "InventoryItem")
 @XmlAccessorType(XmlAccessType.FIELD)
