@@ -1,0 +1,22 @@
+﻿## Games requests
+
+### Add game to player
+POST http://localhost:8080/api/games/player/1
+Content-Type: application/json
+
+{
+  "gameTitle": "Fallout 2",
+  "gameGenre": "Isometric RPG",
+  "gameDescription": "Fallout 2: A Post Nuclear Role Playing Game is the sequel to the original Fallout."
+}
+
+### Get all games
+GET http://localhost:8080/api/games
+Accept: application/json
+
+### Get game by ID
+GET http://localhost:8080/api/games/1
+Accept: application/json
+
+### Delete game by ID
+DELETE http://localhost:8080/api/games/1

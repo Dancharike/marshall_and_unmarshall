@@ -1,0 +1,44 @@
+﻿## Player requests
+
+### Create new player
+POST  http://localhost:8080/api/players
+Content-Type: application/json
+
+{
+  "nickName": "Denis",
+  "email": "denis@example.com",
+  "level": 5,
+  "experience": 1000
+}
+
+### Search player by nickname
+GET http://localhost:8080/api/players/search?nickName=Denis
+Content-Type: application/json
+
+### Get all players
+GET http://localhost:8080/api/players
+Accept: application/json
+
+### Get player by ID
+GET http://localhost:8080/api/players/1
+Accept: application/json
+
+### Update player data
+PUT http://localhost:8080/api/players/1
+Content-Type: application/json
+
+{
+  "nickName": "NewNick",
+  "email": "newemail@example.com"
+}
+
+### Patch player data
+PATCH http://localhost:8080/api/players/3
+Content-Type: application/json
+
+{
+  "level" : 6
+}
+
+### Delete player by ID
+DELETE http://localhost:8080/api/players/1

@@ -1,0 +1,24 @@
+﻿## Achievements requests
+
+### Add new achievement to player
+POST http://localhost:8080/api/achievements
+Content-Type: application/json
+
+{
+  "achievementName": "World to dust",
+  "achievementDescription": "You have destroyed Enclave secret Oil Rig base, nice work!",
+  "dateAchieved": "2025-04-03T12:00:00",
+  "player": {"id" : 1},
+  "game": {"id" :  1}
+}
+
+### Get all achievements
+GET http://localhost:8080/api/achievements
+Accept: application/json
+
+### Get achievement by ID
+GET http://localhost:8080/api/achievements/1
+Accept: application/json
+
+### Delete achievement by ID
+DELETE http://localhost:8080/api/achievements/1

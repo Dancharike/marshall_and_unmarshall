@@ -1,0 +1,24 @@
+﻿## Items requests
+
+### Add new inventory item to player
+POST http://localhost:8080/api/inventory
+Content-Type: application/json
+
+{
+  "itemName": "T-51 power armour helmet",
+  "itemDescription": "Helmet of a legendary armour used in vast amount of battles, it is pretty rusty!",
+  "cost": 1000.0,
+  "player": {"id" : 1},
+  "game": {"id" : 1}
+}
+
+### Get all inventory items
+GET http://localhost:8080/api/inventory
+Accept: application/json
+
+### Get inventory item by ID
+GET http://localhost:8080/api/inventory/1
+Accept: application/json
+
+### Delete inventory item by ID
+DELETE http://localhost:8080/api/inventory/1

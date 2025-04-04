@@ -7,7 +7,9 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import lt.viko.eif.denis.kladijev.marshall.utility.LongToStringAdapter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Basic model of a player that includes: id, nickname, email, level, experience of a player.
@@ -15,7 +17,7 @@ import java.util.List;
  * Also, this class calculates total amount of player's achievements and items.
  */
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id", scope = Player.class)
 @Entity
 @XmlRootElement(name = "Player")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -40,13 +42,13 @@ public class Player
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
     @XmlElementWrapper(name = "Achievements")
     @XmlElement(name = "Achievement")
-    @JsonIgnore
+    //@JsonIgnore
     private List<Achievement> achievements = new ArrayList<>();
 
     @OneToMany(mappedBy = "player", cascade = CascadeType.ALL, orphanRemoval = true)
     @XmlElementWrapper(name = "Inventory")
     @XmlElement(name = "InventoryItem")
-    @JsonIgnore
+    //@JsonIgnore
     private List<InventoryItem> inventory = new ArrayList<>();
 
     /**
@@ -59,14 +61,36 @@ public class Player
     @JsonProperty("totalAchievements")
     public int getTotalAchievements()
     {
-        int total = 0;
-        total += (achievements != null) ? achievements.size() : 0;
-
-        for(Game game : games)
+        Set<Long> ids = new HashSet<>();
+        if(achievements != null)
         {
-            total += (game.getAchievements() != null) ? game.getAchievements().size() : 0;
+            for(Achievement ach : achievements)
+            {
+                if(ach.getId() != null)
+                {
+                    ids.add(ach.getId());
+                }
+            }
         }
-        return total;
+
+        if(games != null)
+        {
+            for(Game game : games)
+            {
+                if(game.getAchievements() != null)
+                {
+                    for(Achievement ach : game.getAchievements())
+                    {
+                        if(ach.getId() != null)
+                        {
+                            ids.add(ach.getId());
+                        }
+                    }
+                }
+            }
+        }
+
+        return ids.size();
     }
 
     /**
@@ -79,14 +103,36 @@ public class Player
     @JsonProperty("totalInventoryItems")
     public int getTotalInventoryItems()
     {
-        int total = 0;
-        total += (inventory != null) ? inventory.size() : 0;
-
-        for(Game game : games)
+        Set<Long> ids = new HashSet<>();
+        if(inventory != null)
         {
-            total += (game.getInventoryItems() != null) ? game.getInventoryItems().size() : 0;
+            for(InventoryItem item : inventory)
+            {
+                if(item.getId() != null)
+                {
+                    ids.add(item.getId());
+                }
+            }
         }
-        return total;
+
+        if(games != null)
+        {
+            for(Game game : games)
+            {
+                if(game.getInventoryItems() != null)
+                {
+                    for(InventoryItem item : game.getInventoryItems())
+                    {
+                        if(item.getId() != null)
+                        {
+                            ids.add(item.getId());
+                        }
+                    }
+                }
+            }
+        }
+
+        return ids.size();
     }
 
     public Player() {}
