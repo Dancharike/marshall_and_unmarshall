@@ -44,4 +44,16 @@ public class AchievementController
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/player/{playerId}")
+    public List<Achievement> getAchievementByPlayerId(@PathVariable Long playerId)
+    {
+        return service.getByPlayerId(playerId);
+    }
+
+    @GetMapping("/game/{gameId}")
+    public List<Achievement> getAchievementByGameId(@PathVariable Long gameId)
+    {
+        return service.getByGameId(gameId);
+    }
 }

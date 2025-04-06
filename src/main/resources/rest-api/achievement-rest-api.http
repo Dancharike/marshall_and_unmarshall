@@ -20,5 +20,13 @@ Accept: application/json
 GET http://localhost:8080/api/achievements/1
 Accept: application/json
 
+### Get achievement by player ID
+GET http://localhost:8080/api/achievements/player/1
+Accept: application/json
+
+### Get achievement by game ID
+GET http://localhost:8080/api/achievements/game/1
+Accept: application/json
+
 ### Delete achievement by ID
 DELETE http://localhost:8080/api/achievements/1

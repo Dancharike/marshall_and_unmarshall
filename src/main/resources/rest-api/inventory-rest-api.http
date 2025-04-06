@@ -20,5 +20,13 @@ Accept: application/json
 GET http://localhost:8080/api/inventory/1
 Accept: application/json
 
+### Get List of inventiry items by player ID
+GET http://localhost:8080/api/inventory/player/1
+Accept: application/json
+
+### Get List of inventory items by game ID
+GET http://localhost:8080/api/inventory/game/1
+Accept: application/json
+
 ### Delete inventory item by ID
 DELETE http://localhost:8080/api/inventory/1

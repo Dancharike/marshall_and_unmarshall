@@ -44,4 +44,16 @@ public class InventoryItemController
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/player/{playerId}")
+    public List<InventoryItem> getItemByPlayerId(@PathVariable Long playerId)
+    {
+        return service.getByPlayerId(playerId);
+    }
+
+    @GetMapping("/game/{gameId}")
+    public List<InventoryItem> getItemByGameId(@PathVariable Long gameId)
+    {
+        return service.getByGameId(gameId);
+    }
 }
