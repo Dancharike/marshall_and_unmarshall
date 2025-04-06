@@ -1,0 +1,68 @@
+﻿<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="Player">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element type="xs:string" name="nickName"/>
+                <xs:element type="xs:string" name="email"/>
+                <xs:element type="xs:byte" name="level"/>
+                <xs:element type="xs:short" name="experience"/>
+                <xs:element name="Games">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Game">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element type="xs:string" name="gameTitle"/>
+                                        <xs:element type="xs:string" name="gameGenre"/>
+                                        <xs:element type="xs:string" name="gameDescription"/>
+                                        <xs:element type="xs:byte" name="player"/>
+                                    </xs:sequence>
+                                    <xs:attribute type="xs:byte" name="id"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Achievements">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Achievement">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element type="xs:byte" name="id"/>
+                                        <xs:element type="xs:string" name="achievementName"/>
+                                        <xs:element type="xs:string" name="achievementDescription"/>
+                                        <xs:element type="xs:dateTime" name="dateAchieved"/>
+                                        <xs:element type="xs:byte" name="player"/>
+                                        <xs:element type="xs:byte" name="game"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Inventory">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="InventoryItem">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element type="xs:byte" name="id"/>
+                                        <xs:element type="xs:string" name="itemName"/>
+                                        <xs:element type="xs:string" name="itemDescription"/>
+                                        <xs:element type="xs:float" name="cost"/>
+                                        <xs:element type="xs:byte" name="player"/>
+                                        <xs:element type="xs:byte" name="game"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element type="xs:byte" name="totalAchievements"/>
+                <xs:element type="xs:byte" name="totalInventoryItems"/>
+            </xs:sequence>
+            <xs:attribute type="xs:byte" name="id"/>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

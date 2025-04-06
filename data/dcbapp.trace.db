@@ -135,3 +135,9 @@ insert into player (email,experience,level,nick_name,id) values (?,?,?,?,default
 2025-04-04 17:41:28.596326+03:00 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PLAYER" not found (this database is empty); SQL statement:
 select p1_0.id,p1_0.email,p1_0.experience,p1_0.level,p1_0.nick_name from player p1_0 [42104-232]
+2025-04-06 23:04:15.671777+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PLAYER" not found (this database is empty); SQL statement:
+select p1_0.id,p1_0.email,p1_0.experience,p1_0.level,p1_0.nick_name from player p1_0 [42104-232]
+2025-04-06 23:04:23.180911+03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "PLAYER" not found (this database is empty); SQL statement:
+insert into player (email,experience,level,nick_name,id) values (?,?,?,?,default) [42104-232]

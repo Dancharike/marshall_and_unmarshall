@@ -40,5 +40,21 @@ Content-Type: application/json
   "level" : 6
 }
 
+### Export player to XML
+GET http://localhost:8080/api/xml/export/player/1
+Accept: application/xml
+
+### Import player from XML
+POST http://localhost:8080/api/xml/import/player
+Content-Type: multipart/form-data; boundary=----MyBoundary
+
+------MyBoundary
+Content-Disposition: form-data; name="file"; filename="player.xml"
+Content-Type: text/xml
+
+< player-1.xml
+------MyBoundary--
+
+
 ### Delete player by ID
 DELETE http://localhost:8080/api/players/1
